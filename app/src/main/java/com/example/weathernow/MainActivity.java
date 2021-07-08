@@ -19,9 +19,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.android.volley.Request;
+import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -37,7 +39,6 @@ public class MainActivity extends AppCompatActivity {
     LocationManager locationManager;
     LocationListener locationListener;
     String apikey = "4a91b112d83a2c5fdb11d3347cd4dd9f";
-
 
 
     //location req accept/reject
@@ -90,6 +91,9 @@ public class MainActivity extends AppCompatActivity {
 
     private void fetchdata(double latitude, double longitude) {
         Log.i("inside","fetch data");
+
+        RequestQueue requestQueue;
+        requestQueue = Volley.newRequestQueue(this);
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,
                 "api.openweathermap.org/data/2.5/weather?lat=" + latitude + "&lon=" + longitude + "&appid=" + apikey, null,
                 new Response.Listener<JSONObject>() {
@@ -137,5 +141,6 @@ public class MainActivity extends AppCompatActivity {
                 weather.setText("Cant find location :(");
             }
         });
+        requestQueue.add(jsonObjectRequest);
     }
 }
