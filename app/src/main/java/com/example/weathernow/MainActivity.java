@@ -73,9 +73,13 @@ public class MainActivity extends AppCompatActivity {
         locationListener = new LocationListener() {
             @Override
             public void onLocationChanged(@NonNull Location location) {
-                fetchdata(location.getLatitude(),location.getLongitude());
-                Log.i("latlon", String.valueOf(location.getLatitude()));
-                Log.i("latlon", String.valueOf(location.getLongitude()));
+                String lon = String.valueOf(location.getLongitude());
+                lon = lon.substring(0,6);
+                String lat = String.valueOf(location.getLatitude());
+                lat = lat.substring(0,6);
+                fetchdata(lat,lon);
+                Log.i("latlon", lat);
+                Log.i("latlon", lon);
             }
         };
         if(Build.VERSION.SDK_INT<23) {
@@ -89,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void fetchdata(double latitude, double longitude) {
+    private void fetchdata(String latitude, String longitude) {
         Log.i("inside","fetch data");
 
         RequestQueue requestQueue;
@@ -124,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
                             String humidity = jsonObject1.getString("humidity");
                             String sealevel = jsonObject1.getString("sea_level");
                             String groundlevel = jsonObject1.getString("grnd_level");
-                            details.setText("Temperature: "+temp+"\n"+
+                            details.setText("Temperature: "+temp+"F\n"+
                                     "Pressure: "+pressure+"\n"+
                                     "Humidity: "+humidity+"\n"+
                                     "Sea Level: "+sealevel+"\n"+
