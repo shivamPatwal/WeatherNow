@@ -98,8 +98,9 @@ public class MainActivity extends AppCompatActivity {
 
         RequestQueue requestQueue;
         requestQueue = Volley.newRequestQueue(this);
+         String url="https://api.openweathermap.org/data/2.5/weather?lat=" + latitude + "&lon=" + longitude + "&appid=" + apikey;
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,
-                "api.openweathermap.org/data/2.5/weather?lat=" + latitude + "&lon=" + longitude + "&appid=" + apikey, null,
+                url, null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
